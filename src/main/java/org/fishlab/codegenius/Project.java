@@ -32,6 +32,14 @@ public class Project extends BasicCoordinate{
 
 	public void setDependencies(Map<String, Dependency> dependencies) {
 		this.dependencies = dependencies;
+	}
+
+	public String getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(String packaging) {
+		this.packaging = packaging;
 	} 
 	
 	

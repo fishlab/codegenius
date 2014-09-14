@@ -1,7 +1,7 @@
 package org.fishlab.codegenius;
 /**基础坐标
  * */
-public class BasicCoordinate {
+public abstract class BasicCoordinate {
 	private String groupId;
 	private String artifactId;
 	private String version;
