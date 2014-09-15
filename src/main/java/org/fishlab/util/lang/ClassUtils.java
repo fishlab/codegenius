@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/**@author wu
+/**@author Black Lotus
  * */
 public class ClassUtils {
 	private static final String SETMETHOD_PREFIX="set";
@@ -52,7 +52,7 @@ public class ClassUtils {
 		}
 		return lf;
 	}
-	/**获取一个属性的set方法*/
+	/**获取一个类以及超类的set方法*/
 	public static List<Method> getAllSettersIncludeSuperClass(final Class<?> clazz) {
 		List<Method> ls=new ArrayList<Method>();
 		for (Class<?> superClass = clazz; 

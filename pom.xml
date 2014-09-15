@@ -9,15 +9,15 @@
 	<packaging>jar</packaging>
 
 	<name>codegenius</name>
-	<!-- <url>http://maven.apache.org</url> -->
-
+	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
-	<dependency>
+		<!-- 日志 -->
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.6</version>
@@ -34,13 +34,41 @@
 			<version>1.1.1</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- 常用工具 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+ 		</dependency>
+ 		
+ 		<!-- 压缩文件处理 -->
+		<dependency>
+		  <groupId>org.apache.commons</groupId>
+		  <artifactId>commons-compress</artifactId>
+		  <version>1.8.1</version>
+		</dependency>
 		
+		<!-- 编码检测 -->
+		<dependency>
+		  <groupId>cpdetector</groupId>
+		  <artifactId>cpdetector</artifactId>
+		  <version>1.0.7</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>chardet</groupId>
+		  <artifactId>chardet</artifactId>
+		  <version>1.0</version>
+		  <classifier>1.0</classifier>
+		  <type>jar</type>
+		</dependency>
+ 		
+		<!-- 模板引擎 -->
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
-
-
+	
 	</dependencies>
 </project>

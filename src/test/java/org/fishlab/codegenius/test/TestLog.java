@@ -9,9 +9,8 @@ public class TestLog {
 	
 	@Test
 	public void test(){
-		logger.info("a format");
-		logger.info("a format22:01:56.081[main]INFO [o.f.codegenius.test.TestLog   ] a format"
-				+"22:01:56.081[main]INFO [o.f.codegenius.test.TestLog   ] a format");
+		logger.info("a log message");
+		logger.info("{} log" ,"test");
 	}
 
 }

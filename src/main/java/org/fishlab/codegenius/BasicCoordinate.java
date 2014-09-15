@@ -1,5 +1,5 @@
 package org.fishlab.codegenius;
-/**基础坐标
+/**maven项目描述文件用到的基础坐标
  * */
 public abstract class BasicCoordinate {
 	private String groupId;
