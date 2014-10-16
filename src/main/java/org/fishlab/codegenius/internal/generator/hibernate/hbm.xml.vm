@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	#foreach(${prop} in ${cg.properties})
+	${prop.name}:${prop.value}
+	#end
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="${className}" table="${tableName}" polymorphism="explicit">
+		<cache usage="read-write"/>
+		<id name="${id.name}" column="${prefix}${id.name}" type="${id.type}">
+			<generator class="native"/>
+		</id>
+    	#foreach(${prop} in ${props})
+		<property name="${prop.name}" column="${prefix}${prop.name}" type="${prop.type}"/>
+    	#end
+	</class>
+</hibernate-mapping>

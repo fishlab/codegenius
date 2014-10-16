@@ -1,0 +1,69 @@
+#set($sn=${class.simpleName})
+package ${project.packageName}.mapper.impl;
+
+import java.io.Serializable;
+import java.util.List;
+
+import ${class.name};
+import ${project.packageName}.mapper.${sn}Mapper;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+/**
+#parse("org/fishlab/codegenius/internal/generator/cg.vm")
+*/
+@Repository
+public class ${sn}MapperImpl<T> implements ${sn}Mapper{
+	@Autowired SessionFactory sessionFactory;
+
+	@Override
+	public ${sn} getById(Serializable id) {
+		Session s=this.sessionFactory.getCurrentSession();
+		return (${sn}) s.get(${sn}.class, id);
+	}
+	
+	@Override
+	public long getTotalCount() {
+		Session s=this.sessionFactory.getCurrentSession();
+        Criteria criteria = s.createCriteria(${sn}.class);
+        criteria.setProjection(Projections.rowCount());
+		return  ((Long)criteria.uniqueResult()).longValue();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<${sn}> getByPage(int page, int size) {
+		Session s=this.sessionFactory.getCurrentSession();
+		Query q=s.createQuery("from "+${sn}.class.getName());
+		q.setCacheable(true);
+		q.setFirstResult(page*size);
+		q.setMaxResults(size);
+		return q.list();
+	}
+
+	@Override
+	public void insert(${sn} ${sn}) throws Exception {
+		Session s=this.sessionFactory.getCurrentSession();
+		s.save(${sn}.class.getName(),${sn});
+	}
+
+	@Override
+	public void update(${sn} ${sn}) throws Exception {
+		Session s=this.sessionFactory.getCurrentSession();
+		s.update(${sn}.class.getName(),${sn});
+	}
+
+	@Override
+	public void deleteById(Serializable id) throws Exception {
+		Session s=this.sessionFactory.getCurrentSession();
+		Query q =s.createQuery("delete from "+${sn}.class.getName()+" where id=:id");
+		q.setParameter("id", id);
+		q.executeUpdate();
+		
+	}
+
+}

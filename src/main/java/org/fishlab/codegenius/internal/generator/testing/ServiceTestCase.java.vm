@@ -1,0 +1,64 @@
+#set($sn=${class.simpleName})
+#set($var=${sn.toLowerCase()})
+package ${project.packageName}.test.service;
+
+import java.io.IOException;
+
+import ${class.name};
+import ${project.packageName}.service.${class.simpleName}Service;
+import org.fishlab.codegenius.support.spring.test.ServiceTest;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+#set($className = "Test${sn}Service")
+public class ${className} extends ServiceTest{
+	protected static String LINE ="-----------";
+	static Logger log=LoggerFactory.getLogger(${className}.class);
+	@Autowired ${sn}Service ${var}Service;
+	
+	@BeforeClass
+	public static void beforeTest() {
+		log.info("{} {} {} {}",LINE,${className}.class.getSimpleName(),"start",LINE);
+	}
+	
+	@Test
+	public void case_1() throws Exception{
+//		TODO:自己添加测试代码
+	}
+	
+	/**测试增删改查*/
+	@Test
+	public void case_curd() throws Exception{
+		log.debug("-----test save-----");
+		${sn} ${var} =new ${sn}();
+		#foreach(${setter} in ${setterDescriptions})
+		${var}.${setter.name}(${setter.defaultValue});
+		#end
+		this.${var}Service.save(${var});
+		log.debug("{} save success with id #{}\n",${var},${var}.getId());
+		
+		log.debug("-----test get-----");
+		${sn} ${var}_get = this.${var}Service.getById(${var}.getId());
+		Assert.assertNotNull(${var}_get);
+		Assert.assertEquals(${var}.getId(), ${var}_get.getId());
+		log.debug("{} get success with id #{}\n",${var}_get,${var}_get.getId());
+		
+		log.debug("-----test update-----");
+		this.${var}Service.update(${var}_get);
+		log.debug("{} update success with id #{}\n",${var}_get,${var}_get.getId());
+		
+		log.debug("-----test delete-----");
+		this.${var}Service.deleteById(${var}_get.getId());
+		log.debug("{} delete success with id #{}\n",${var}_get,${var}_get.getId());
+	} 
+	
+	@AfterClass
+	public static void afterTest() throws IOException{
+		log.info("{} {} {} {}",LINE,${className}.class.getSimpleName(),"end",LINE);
+	}
+	
+}

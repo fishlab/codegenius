@@ -1,0 +1,73 @@
+#set($sn=${class.simpleName})
+\#set($layout="cg/bs3.layout.vm")
+<main class="container">
+	
+		<div class="row">
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+			<ol class="breadcrumb">
+				<li>
+					<a href="index.html">首页</a>
+				</li>
+				<li>
+					<a href="data-list.html">数据</a>
+				</li>
+				<li>
+					<a class="cg-auto-param" data-param="page" href="${var}-list.html">${sn}</a>
+				</li>
+				<li class="active">${${var}.id}</li>
+			</ol>
+
+			<div class="page-header">
+				<h1>
+					<small>${sn}详请</small>
+				</h1>
+				<div class="btn-group">
+					<a href="${var}-add.html" data-param="page id" class="cg-auto-param btn btn-primary">新增</a>
+					<a href="${var}-edit.html" data-param="page id" class="cg-auto-param btn btn-warning">修改</a>
+				##	<a href="news-delete.html?id=${data.id}" class="btn btn-danger">删除</a>
+				</div>
+			</div>
+				
+			<div class="alert alert-success alert-dismissible hidden1" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<strong><span class="glyphicon glyphicon-ok"></span> 操作成功!</strong> 你已经成功更新该数据
+			</div>
+				
+			<table class="table table-bordered table-striped">
+					<colgroup>
+					<col class="col-xs-1">
+					<col class="col-xs-7"></colgroup>
+				<thead>
+					<tr>
+						<th>属性</th>
+						<th>值</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td>
+							<code>id</code>
+						</td>
+						<td>${${var}.id}</td>
+					</tr>
+					#foreach(${fd} in ${fields})
+					<tr>
+						<td>
+							<code>${fd}</code>
+						</td>
+						<td>${${var}.${fd}}</td>
+					</tr>
+					#end
+				</tbody>
+			</table>
+
+
+		</div>
+		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+		\#parse("cg/aside.vm")
+		</div>
+
+	</div>
+
+</main>

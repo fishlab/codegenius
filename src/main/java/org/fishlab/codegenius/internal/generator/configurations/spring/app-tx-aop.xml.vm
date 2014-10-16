@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:tool="http://www.springframework.org/schema/tool" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+					http://www.springframework.org/schema/beans/spring-beans.xsd
+					http://www.springframework.org/schema/tx
+					http://www.springframework.org/schema/tx/spring-tx.xsd
+					http://www.springframework.org/schema/aop
+					http://www.springframework.org/schema/aop/spring-aop.xsd
+					http://www.springframework.org/schema/jee
+					http://www.springframework.org/schema/jee/spring-jee.xsd
+					http://www.springframework.org/schema/context
+					http://www.springframework.org/schema/context/spring-context.xsd
+					http://www.springframework.org/schema/util
+					http://www.springframework.org/schema/util/spring-util.xsd
+					http://www.springframework.org/schema/tool
+					http://www.springframework.org/schema/tool/spring-tool.xsd"
+	default-lazy-init="true"  default-autowire="byName">
+	
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> 
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 声明式事务 --> 
+	<tx:advice id="txAdvice" transaction-manager="transactionManager"> 
+		<tx:attributes>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+			<tx:method name="save*" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="update*" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="*" propagation="REQUIRED" read-only="true"/> 
+		</tx:attributes>
+	</tx:advice>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<!--配置AOP事务切点-->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut
+		id="serviceMethods" 
+		expression="execution(* ${project.packageName}.service.impl.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
+	</aop:config>
+	
+	<!--配置AOP Logging-->	
+	<aop:config proxy-target-class="true">
+        <aop:aspect id="serviceLogging" ref="aspectServiceLogging">
+            <aop:pointcut id="serviceMethod"
+                expression="execution(* ${project.packageName}.service.impl.*.*(..))" />
+            <aop:before pointcut-ref="serviceMethod" method="doBefore"/>
+            <aop:after pointcut-ref="serviceMethod" method="doAfter"/>
+            <aop:around pointcut-ref="serviceMethod" method="doAround"/>
+            <aop:after-throwing pointcut-ref="serviceMethod" method="doThrowing" throwing="ex"/>  
+        </aop:aspect>
+    </aop:config>
+	
+	<bean id="aspectServiceLogging" class="org.fishlab.codegenius.support.service.AspectServiceLogging"/>
+</beans>

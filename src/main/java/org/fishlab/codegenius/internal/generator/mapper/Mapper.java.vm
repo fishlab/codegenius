@@ -1,0 +1,11 @@
+#set($sn=${class.simpleName})
+package ${project.packageName}.mapper;
+
+import ${class.name};
+import org.fishlab.codegenius.support.orm.Mapper;
+/**
+#parse("org/fishlab/codegenius/internal/generator/cg.vm")
+*/
+public interface ${sn}Mapper extends Mapper<${sn}>{
+//	TODO:add custom methods declaration if need
+}

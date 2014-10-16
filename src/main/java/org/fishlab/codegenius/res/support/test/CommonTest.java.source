@@ -1,0 +1,12 @@
+package org.fishlab.codegenius.support.test;
+
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
+public abstract class CommonTest {
+	@Rule
+	public TestRule rule = new CustomTestWatcher();
+}

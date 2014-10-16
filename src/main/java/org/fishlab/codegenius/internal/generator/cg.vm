@@ -1,0 +1,3 @@
+	#foreach(${prop} in ${cg.properties})
+	${prop.name}:${prop.value}
+	#end

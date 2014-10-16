@@ -1,0 +1,17 @@
+#set($sn=${class.simpleName})
+package ${project.packageName}.service;
+
+import java.util.List;
+
+import ${class.name};
+/**
+#parse("org/fishlab/codegenius/internal/generator/cg.vm")
+*/
+public interface ${sn}Service {
+	public ${sn} getById(${idType} id);
+	public long getTotalCount();
+	public List<${sn}> getByPage(int page,int size);
+	public void save(${sn} ${sn.toLowerCase()}) throws Exception;
+	public void update(${sn} ${sn.toLowerCase()}) throws Exception;
+	public void deleteById(${idType} id) throws Exception;
+}

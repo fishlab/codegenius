@@ -1,0 +1,51 @@
+#set($package=${project.packageName})
+package ${package}.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+##foreach(${class} in ${classes})
+##import ${class.name};
+##end
+#foreach(${class} in ${classes})
+import ${package}.service.${class.simpleName}Service;
+#end
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class ProjectBreviaryController {
+#foreach(${class} in ${classes})
+#set($sn=${class.simpleName})
+#set($var=${sn.toLowerCase()})
+	@Autowired ${sn}Service ${var}Service;
+#end
+
+	@RequestMapping("index")
+	public String index(ModelMap mm){
+		return "cg/index.vm";
+	}
+	
+	
+	@RequestMapping("data-list")
+	public String dataList(ModelMap mm){
+		List<Map<String,Object>> lsdesc=new ArrayList<Map<String,Object>>();
+		Map<String,Object> desc=null;
+		
+		#foreach(${class} in ${classes})
+        #set($sn=${class.simpleName})
+        #set($var=${sn.toLowerCase()})
+        desc=new HashMap<String,Object>();
+		desc.put("simpleName","${sn}");
+		desc.put("totalCount", ${var}Service.getTotalCount());
+		lsdesc.add(desc);
+		#end
+		
+		mm.put("descs", lsdesc);
+		return "cg/data-list.vm";
+	}
+}

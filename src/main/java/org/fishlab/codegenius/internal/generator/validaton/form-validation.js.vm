@@ -1,0 +1,35 @@
+/*
+* @Author: Black Lotus
+* @Date:   2014-10-07 03:10:35
+* @Last Modified by:   Black Lotus
+* @Last Modified time: 2014-10-11 17:01:53
+*/
+
+!function($) {
+$(function() {
+	$(".cg-form").validate({
+		//此处需要修改为自定义校验规则
+		rules: {
+			#foreach(${fd} in ${fields})
+			#if(${velocityCount}>1)
+			,#else
+			/*,*/#end"${fd}":{
+				required:true
+			}
+			#end
+
+		},
+		errorPlacement:function(error, element) {
+			element.closest("div.form-group").addClass("has-error");
+			error.insertAfter(element.closest("div") );
+		},
+		errorElement:"p",
+		errorClass: "help-block container-fluid",
+		success:function(error, element) {
+			$(element).closest("div.form-group").removeClass("has-error");
+			error.remove();
+		}
+	});
+
+});
+}(window.jQuery);

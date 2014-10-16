@@ -1,0 +1,131 @@
+#parse("org/fishlab/codegenius/internal/generator/short-name.vm")
+package ${project.packageName}.controller;
+
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import ${class.name};
+import ${project.packageName}.service.${sn}Service;
+import org.fishlab.codegenius.support.spring.mvc.DateEditor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+/**
+#parse("org/fishlab/codegenius/internal/generator/cg.vm")
+*/
+@Controller
+public class ${sn}Controller {
+	static Log log =LogFactory.getLog(${sn}Controller.class);
+	@Autowired ${sn}Service ${var}Service;
+	
+	@InitBinder  
+    protected void initBinder(HttpServletRequest request,ServletRequestDataBinder binder) throws Exception {  
+        binder.registerCustomEditor(Date.class, DateEditor.defaultInstance());
+    }
+	
+	@RequestMapping("${var}-list")
+	public String ${var}List(ModelMap mm
+			,@RequestParam(value="page",required=false,defaultValue="0") int page
+			,@RequestParam(value="size",required=false,defaultValue="20") int size
+			){
+		
+		try{
+			long total =this.${var}Service.getTotalCount();
+			mm.put("totalCount", total);
+			mm.put("${var}List",this.${var}Service.getByPage(page, size));
+		}catch(Exception e){
+			e.printStackTrace();
+			mm.put("exception", e);
+			return "cg/error-404.vm";
+		}
+		return "data/${var}-list.vm";
+	}
+	
+	@RequestMapping("${var}-add")
+	public String ${var}Add(){
+		return "data/${var}-add.vm";
+	}
+	
+	@RequestMapping("${var}-add-submit")
+	public String ${var}AddSubmit(${sn} ${var},ModelMap mm){
+		try {
+			this.${var}Service.save(${var});
+		} catch (Exception e) {
+			e.printStackTrace();
+			mm.put("exception", e);
+			return "cg/error-404.vm";
+		}
+		return "redirect:${var}-list.html";
+	}
+	
+	@RequestMapping("${var}-edit")
+	public String ${var}Edit(ModelMap mm,@RequestParam(value="id") ${idType} id){
+		${sn} ${var} = this.${var}Service.getById(id);
+		if (${var}!=null){
+			mm.put("${var}", ${var});
+			return "data/${var}-edit.vm";
+		}else{
+			return "cg/error-404.vm";
+		}
+	}
+	
+	@RequestMapping("${var}-edit-submit")
+	public String ${var}EditSubmit(${sn} origin${sn},ModelMap mm){
+		${sn} ${var} = this.${var}Service.getById(origin${sn}.getId());
+		if (${var}!=null){
+			#foreach(${Fd} in ${Fields})
+			${var}.set${Fd}(origin${sn}.get${Fd}());
+			#end
+			try {
+				this.${var}Service.update(${var});
+				return "redirect:${var}-detail.html?id="+${var}.getId();
+			} catch (Exception e) {
+				e.printStackTrace();
+				mm.put("${var}", ${var});
+				mm.put("message", "update.error");
+				return "data/${var}-edit.vm";
+			}
+		}else{
+			return "cg/error-404.vm";
+		}
+	}
+//	TODO:可以使用Ajax
+	@RequestMapping("${var}-delete")
+	public String ${var}Delete(
+			@RequestParam(value="id") ${idType} id,
+			@RequestParam(value="page",defaultValue="0") int page,
+			ModelMap mm){
+		${sn} ${var} = this.${var}Service.getById(id);
+		if (${var}!=null){
+			try {
+				this.${var}Service.deleteById(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mm.put("exception", e);
+			}
+			return "redirect:${var}-list.html?page="+page;
+		}else{
+			return "cg/error-404.vm";
+		}
+	}
+	
+	@RequestMapping("${var}-detail")
+	public String newDetail(ModelMap mm,@RequestParam(value="id") ${idType} id){
+		${sn} ${var} = this.${var}Service.getById(id);
+		if (${var}!=null){
+			mm.put("${var}", ${var});
+			return "data/${var}-detail.vm";
+		}else{
+			return "cg/error-404.vm";
+		}
+	}
+	
+	
+}

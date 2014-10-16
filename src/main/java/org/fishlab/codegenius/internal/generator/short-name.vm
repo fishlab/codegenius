@@ -1,0 +1,2 @@
+#set($sn=${class.simpleName})
+#set($var=${sn.toLowerCase()})

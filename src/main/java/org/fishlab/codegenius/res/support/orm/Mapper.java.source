@@ -1,0 +1,16 @@
+package org.fishlab.codegenius.support.orm;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**通用数据访问层，我不喜欢用DAO
+ * @author Black Lotus
+ * */
+public interface Mapper<T>{
+	T getById(Serializable id);
+	List<T> getByPage(int page,int size);
+	long getTotalCount();
+	void insert(T instance) throws Exception;
+	void update(T instance) throws Exception;
+	void deleteById(Serializable id) throws Exception;
+}

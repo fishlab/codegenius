@@ -1,0 +1,19 @@
+package org.fishlab.codegenius.support.spring.test;
+
+import org.fishlab.codegenius.support.test.CustomTestWatcher;
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.runners.MethodSorters;
+import org.springframework.test.context.ContextConfiguration;
+@ContextConfiguration(locations ={
+		"classpath:spring/app-include.xml",
+})
+/**@author Black Lotus
+ * */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
+public class ServiceTest extends TransactionalSpringTest{
+	@Rule
+	public TestRule rule = new CustomTestWatcher();
+
+}

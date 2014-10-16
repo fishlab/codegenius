@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+	default-lazy-init="true">
+	<!--自动扫描且只扫描@Controller -->
+	<context:component-scan
+		base-package="${project.packageName}.controller"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<mvc:annotation-driven />
+
+	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+	<mvc:default-servlet-handler />
+	<!-- 静态资源映射 -->
+	<!--mvc:resources mapping="/resources/**" location="/resources/"/>
+	<mvc:resources mapping="/lib/**" location="/lib/"/>
+	<mvc:resources mapping="/css/**" location="/css/"/> 
+	<mvc:resources mapping="/js/**" location="/js/"/>
+	<mvc:resources mapping="/css/**" location="/css/"/--> 
+	<!--拦截器 -->
+	<mvc:interceptors>
+		<!--
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+		</mvc:interceptor>
+		-->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="org.fishlab.codegenius.support.spring.mvc.CharsetInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!--
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/mgt/*" />
+			<bean class="org.fishlab.app.platform.ui.interceptor.AuthorizationInterceptor">
+				<property name="attribute" value="manager"/>
+				<property name="excludedUrls">
+				<list>
+				  <value>/mgt/login.html</value>
+				  <value>/mgt/login-verify.html</value>
+				</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	-->
+	
+	<bean id="handlerExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	  <property name="exceptionMappings">
+		<props>
+		  <prop key="org.fishlab.app.platform.ui.interceptor.AuthorizationException">redirect:/login.html</prop>
+		</props>
+	  </property>
+	</bean>
+	
+	<!--国际化 -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<!--bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" -->
+		<property name="basenames">
+			<list>
+<!-- 				<value>org/fishlab/identification/platform/i18n/messages</value> -->
+<!-- 				<value>org/fishlab/web/i18n/test</value> -->
+			</list>
+		</property>
+		<property name="useCodeAsDefaultMessage" value="true" />
+	</bean>
+	<!--VIEW定义 -->
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/vtl/" />
+		<property name="velocityProperties">
+			<props>
+				<prop key="file.resource.loader.modificationCheckInterval">1</prop>
+				<prop key="input.encoding">UTF8</prop>
+				<prop key="output.encoding">UTF8</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="multipleViewResolver"
+		class="org.fishlab.codegenius.support.spring.mvc.MultipleViewResolver"
+		p:order="0">
+		<property name="resolvers">
+			<map>
+				<!--entry key="config,txt"> <bean class="org.fishlab.web.spring.servlet.viewresolver.GenericFileViewResolver" 
+					p:location="/WEB-INF/config/" p:cache="false"> <property name="viewName" 
+					value="configFileView" /> </bean> </entry> <entry key="swf"> <bean class="org.fishlab.web.spring.servlet.viewresolver.GenericFileViewResolver" 
+					p:location="/WEB-INF/swf/" p:cache="false"> <property name="viewName" value="swfFileView" 
+					/> </bean> </entry -->
+				<entry key="vm">
+					<!--bean id="innerVelocityResolver0" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver"> 
+						<property name="cache" value="false"/> <property name="exposeSpringMacroHelpers" 
+						value="true"/> <property name="contentType" value="text/html;charset=UTF-8" 
+						/> </bean -->
+					<bean id="innerVelocityResolver"
+						class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+						<!--property name="viewClass" value="org.fishlab.web.spring.servlet.view.VelocityToolbox20View"/ -->
+						<property name="cache" value="false" />
+						<property name="contentType" value="text/html;charset=utf-8" />
+						<property name="toolboxConfigLocation" value="/WEB-INF/velocity-toolbox.xml" />
+						<property name="layoutUrl" value="layout/none.vm" />
+						<!--property name="layoutKey" value="layout"/ -->
+						<property name="screenContentKey" value="screen_content" />
+						<property name="exposeRequestAttributes" value="true" />
+						<property name="exposeSessionAttributes" value="true" />
+						<property name="exposeSpringMacroHelpers" value="true" />
+					</bean>
+				</entry>
+				<!--entry key="ftl">
+					<bean id="innerFreeMarkerResolver"
+						class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+						<property name="cache" value="false" />
+						<property name="viewClass"
+							value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+						<property name="contentType" value="text/html;charset=UTF-8" />
+						<property name="exposeRequestAttributes" value="true" />
+						<property name="exposeSessionAttributes" value="true" />
+						<property name="exposeSpringMacroHelpers" value="true" />
+					</bean>
+				</entry-->
+				<entry key="jsp">
+					<bean id="defaultViewResolver"
+						class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+						<property name="viewClass"
+							value="org.springframework.web.servlet.view.InternalResourceView" />
+						<property name="contentType" value="text/html" />
+						<property name="prefix" value="/jsp/" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="2" />
+		<property name="favorPathExtension" value="true" />
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+			</map>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- bean name view resolver -->
+	<!--bean class="org.springframework.web.servlet.view.BeanNameViewResolver" 
+		p:order="4" / -->
+	<!-- 默认的视图解析器 应该给InternalResourceViewResolver分配最低的优先级别，因为无论它是否存在，始终都会用它来解析视图。 -->
+	<bean id="defaultViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:order="5">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.InternalResourceView" />
+		<property name="contentType" value="text/html" />
+		<property name="prefix" value="/WEB-INF/default/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<mvc:view-controller path="/" view-name="redirect:/index.html" />
+	<!-- 文件上传相关 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="maxUploadSize" value="10485760" /><!--10M -->
+		<property name="maxInMemorySize" value="24576" /><!--24K -->
+	</bean>
+	<!-- 总错误处理 -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView">
+			<value>/error500.jsp</value>
+		</property>
+		<property name="defaultStatusCode">
+			<value>500</value>
+		</property>
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">
+					error500.jsp
+				</prop>
+				<prop key="java.lang.Exception">error500.jsp</prop>
+				<prop key="java.lang.Throwable">error400.jsp</prop>
+			</props>
+		</property>
+		<property name="statusCodes">
+			<props>
+				<prop key="error500">500</prop>
+				<prop key="error400">404</prop>
+			</props>
+		</property>
+		<property name="warnLogCategory">
+			<value>org.springframework.web.servlet.handler.SimpleMappingExceptionResolver
+			</value>
+		</property>
+	</bean>
+	<!-- only for unit test -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+</beans>

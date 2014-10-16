@@ -1,0 +1,16 @@
+package ${project.packageName}.test;
+
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.runners.MethodSorters;
+import org.springframework.test.context.ContextConfiguration;
+@ContextConfiguration(locations ={
+		"classpath:spring/app-include.xml",
+})
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
+public class ServiceTest extends TransactionalSpringTest{
+	@Rule
+	public TestRule rule = new CustomTestWatcher();
+
+}

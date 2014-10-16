@@ -1,0 +1,117 @@
+\#set($layout="cg/bs3.layout.vm")
+#set($sn=${class.simpleName})
+<script src="plugins/jquery.pagination-2.2.js"></script>
+<script src="plugins/jquery.pagination.bs3render.js"></script>
+<script src="scripts/cg-data-list-option.js"></script>
+<script>
+!function($){
+$(function(){
+		var current_page=cg.currentPage();
+		var page=$("#pagination");
+		var total=${totalCount},pagesize=20;
+		page.pagination(total,{
+		    callback: function (i,$e){
+				if (i!==current_page)
+		    	document.location="?page="+i;
+		    },
+		    current_page:current_page,
+		    load_first_page:false,
+		    prev_text:"上一页",
+		    next_text:"下一页",
+		    renderer:"bs3Renderer",
+		    num_edge_entries:2,
+			show_if_single_page:true,
+		    items_per_page:pagesize // Show only one item per page
+		});
+});
+}(window.jQuery)
+</script>
+	<main class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+				<ol class="breadcrumb">
+					<li>
+						<a href="index.html">首页</a>
+					</li>
+					<li>
+						<a href="data-list.html">数据</a>
+					</li>
+					<li class="active">${sn}</li>
+				</ol>
+				
+				<div class="page-header">
+					<h1>
+						##${sn}列表
+						<small>${sn}列表</small>
+					</h1>
+				</div>
+				
+					<div class="btn-group cg-data-list-option hidden">
+					  <a data-href="detail.html" class="btn btn-info btn-xs">
+					  	<span class="glyphicon glyphicon-info-sign"></span>&nbsp;查看</a>
+					  <a data-href="edit.html" class="btn btn-warning btn-xs">
+					  	<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
+					  <a class="btn btn-danger btn-xs">
+					  	<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+					</div>
+
+					<div id="tip_modal" class="modal fade">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal">
+					        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					        <h4 class="modal-title"></h4>
+					      </div>
+					      <div class="modal-body">
+					        <p></p>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-danger"></button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+				<!-- visible if after add/delete/edit operation -->
+				<!--
+				<div class="alert alert-success alert-dismissible hidden1" role="alert">
+				  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong><span class="glyphicon glyphicon-ok"></span> 操作成功!</strong>你已经成功...
+				</div>
+				-->
+				
+				<div class="btn-group">
+				  <a href="${var}-add.html" data-param="page" class="cg-auto-param btn btn-sm btn-primary">
+				  	<span class="glyphicon glyphicon-plus"></span>新增数据</a>
+			<!-- 	  <button type="button" class="btn btn-default">Middle</button>
+				  <button type="button" class="btn btn-default">Right</button> -->
+				</div>
+				<table class="cg-data-list table table-striped table-hover" data-base-url="${var}-">
+					<thead>
+						<tr>
+							<th>Id</th>
+							#foreach(${fd} in ${fields})
+							<th>${fd}</th>
+							#end
+						</tr>
+					</thead>
+					<tbody>
+						\#foreach(${${var}} in ${${var}List})
+						<tr>
+                            <td>${${var}.id}</td>
+							#foreach(${fd} in ${fields})
+							<td>${${var}.${fd}}</td>
+							#end
+						</tr>
+						\#end
+					</tbody>
+				</table>
+				<div id="pagination"></div>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+			\#parse("cg/aside.vm")
+			</div>
+		</div><!--end of row-->
+
+	</main>

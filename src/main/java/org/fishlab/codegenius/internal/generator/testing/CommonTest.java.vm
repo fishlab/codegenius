@@ -1,0 +1,14 @@
+package ${project.packageName}.test;
+
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.runners.MethodSorters;
+/**
+#parse("org/fishlab/codegenius/internal/generator/cg.vm")
+*/
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
+public abstract class CommonTest {
+	@Rule
+	public TestRule rule = new CustomTestWatcher();
+}

@@ -1,0 +1,56 @@
+#set($sn=${class.simpleName})
+#set($var=${sn.toLowerCase()})
+package ${project.packageName}.service.impl;
+import java.util.List;
+import ${project.packageName}.service.${sn}Service;
+import ${class.name};
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+/**
+#parse("org/fishlab/codegenius/internal/generator/cg.vm")
+*/
+@Service
+public class ${sn}ServiceImpl implements ${sn}Service{
+	@Autowired SessionFactory sessionFactory;
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<${sn}> getByPage(int page,int size){
+		Session s=this.sessionFactory.getCurrentSession();
+		Query q=s.createQuery("from "+${sn}.class.getName());
+		q.setCacheable(true);
+		q.setFirstResult(page*size);
+		q.setMaxResults(size);
+		return q.list();
+	}
+	
+	@Override
+	public ${sn} getById(${idType} id){
+		Session s=this.sessionFactory.getCurrentSession();
+		return (${sn})s.get(${sn}.class, id);
+	}
+	
+	@Override
+	public void save(${sn} ${var}) throws Exception{
+		Session s=this.sessionFactory.getCurrentSession();
+		s.save(${var});
+	}
+	
+	@Override
+	public void update(${sn} ${var}) throws Exception{
+		Session s=this.sessionFactory.getCurrentSession();
+		s.update(${var});
+	}
+	
+	@Override
+	public void deleteById(${idType} id) throws Exception{
+		Session s=this.sessionFactory.getCurrentSession();
+		Query q =s.createQuery("delete from "+${sn}.class.getName()+" where id=:id");
+		q.setParameter("id", id);
+		q.executeUpdate();
+	}
+}

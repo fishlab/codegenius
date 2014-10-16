@@ -1,0 +1,54 @@
+#set($sn=${class.simpleName})
+\#set($layout="cg/bs3.layout.vm")
+
+<script src="plugins/jquery-validation-1.11.1/jquery.validate.min.js"></script>
+<script src="plugins/jquery-validation-1.11.1/localization/messages_zh.js"></script>
+<script src="scripts/validation/${var}-form-validation.js"></script>
+	<main class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+				<ol class="breadcrumb">
+					<li>
+						<a href="index.html">首页</a>
+					</li>
+					<li>
+						<a href="data-list.html">数据</a>
+					</li>
+					<li>
+						<a data-param="page" class="cg-auto-param" href="${var}-list.html">${sn}</a>
+					</li>
+					<li class="active">添加</li>
+				</ol>
+				
+				<form role="form" class="form-horizontal cg-form" action="${var}-add-submit.html" method="post">
+					<div class="cg-form-header">
+						<h4>添加${sn}</h4>
+					</div>
+
+					<div class="cg-form-body">
+						#foreach(${fd} in ${fields})
+						<div class="form-group">
+							<label for="${fd}" class="control-label col-sm-2">${fd}</label>
+							<div class="col-sm-5">
+								<input type="text" name="${fd}" class="form-control" placeHolder="Enter ${fd}">
+								<!-- <span class="help-block">help text for name</span> -->
+							</div>
+						</div>
+						#end
+					</div>
+
+					<div class="cg-form-footer">
+						<button type="submit" class="btn btn-primary">
+							<span class="glyphicon glyphicon-ok"></span> 提交</button>
+						<button type="reset" class="btn btn-danger">
+							<span class="glyphicon glyphicon-remove"></span> 重置</button>
+					</div>
+				</form>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+			\#parse("cg/aside.vm")
+			</div>
+
+		</div>
+
+	</main>

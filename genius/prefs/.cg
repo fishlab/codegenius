@@ -1,0 +1,16 @@
+comp=attackmap
+bookmark=http://111.1.17.143:28095/gCmd.do?cmd=1e350&sid=kplk5x282oxjglriuppzzy&gid=g994
+mpaddm=2
+killxm=truef
+mpadd=玉露
+hpaddm=0
+sleeptime=400
+entergame=truef
+level=165
+skill=白雪
+enableattackpoint=true
+hpadd=灵芝
+addpet2=truef
+lowhp=0.5
+lowmp=0.1
+addpet1=truef

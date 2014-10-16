@@ -1,0 +1,48 @@
+#set($sn=${class.simpleName})
+#set($var=${sn.toLowerCase()})
+package ${project.packageName}.service.impl;
+import java.util.List;
+import ${project.packageName}.mapper.${sn}Mapper;
+import ${project.packageName}.service.${sn}Service;
+import ${class.name};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+/**
+#parse("org/fishlab/codegenius/internal/generator/cg.vm")
+*/
+@Service
+public class ${sn}ServiceImpl implements ${sn}Service{
+	@Autowired ${sn}Mapper ${var}Mapper;
+
+	@Override
+	public ${sn} getById(${idType} id) {
+		return this.${var}Mapper.getById(id);
+	}
+	
+	@Override
+	public List<${sn}> getByPage(int page, int size) {
+		return this.${var}Mapper.getByPage(page, size);
+	}
+
+	@Override
+	public long getTotalCount() {
+		return this.${var}Mapper.getTotalCount();
+	}
+	
+	@Override
+	public void save(${sn} ${var}) throws Exception {
+		this.${var}Mapper.insert(${var});
+	}
+
+	@Override
+	public void update(${sn} ${var}) throws Exception {
+		this.${var}Mapper.update(${var});
+	}
+
+	@Override
+	public void deleteById(${idType} id) throws Exception {
+		this.${var}Mapper.deleteById(id);
+	}
+
+}
