@@ -81,8 +81,10 @@ public class ${sn}Controller {
 		${sn} ${var} = this.${var}Service.getById(origin${sn}.getId());
 		if (${var}!=null){
 			#foreach(${Fd} in ${Fields})
-			${var}.set${Fd}(origin${sn}.get${Fd}());
+			${var}.set${Fd.name}(origin${sn}.${Fd.getter}${Fd.name}());
 			#end
+			//or set all properties as follows:
+			//BeanUtils.copyProperties(${var}, origin${sn});  
 			try {
 				this.${var}Service.update(${var});
 				return "redirect:${var}-detail.html?id="+${var}.getId();

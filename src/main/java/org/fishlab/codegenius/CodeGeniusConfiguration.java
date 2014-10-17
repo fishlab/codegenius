@@ -11,7 +11,7 @@ import org.fishlab.codegenius.internal.generator.configurations.GeneralConfigFil
 import org.fishlab.codegenius.internal.generator.configurations.SpringConfigFileGenerator;
 import org.fishlab.codegenius.internal.generator.configurations.WebConfigFileGenerator;
 import org.fishlab.codegenius.internal.generator.controller.ControllerGenerator;
-import org.fishlab.codegenius.internal.generator.hibernate.HibernateMappingFileGenerator;
+import org.fishlab.codegenius.internal.generator.hibernate.*;
 import org.fishlab.codegenius.internal.generator.mapper.MapperImplGenerator;
 import org.fishlab.codegenius.internal.generator.mapper.MapperInterfaceGenerator;
 import org.fishlab.codegenius.internal.generator.maven.POMFileGenerator;
@@ -28,6 +28,7 @@ public class CodeGeniusConfiguration {
 	static {
 		DEFAULT_GENERATOR.add(POMFileGenerator.class);
 		DEFAULT_GENERATOR.add(SupportClassGenerator.class);
+		DEFAULT_GENERATOR.add(HibernateSpringConfigFileGenerator.class);
 		DEFAULT_GENERATOR.add(HibernateMappingFileGenerator.class);
 		DEFAULT_GENERATOR.add(MapperInterfaceGenerator.class);
 		DEFAULT_GENERATOR.add(MapperImplGenerator.class);

@@ -13,7 +13,7 @@ public class Project extends BasicCoordinate{
 	private String testFolder ="test";
 	private String configFolder="config";
 	private String resourceFolder="WebContent";
-	
+	private DataSource dataSource;
 	private String packaging;
 	private Map<String,Object> properties = new HashMap<String,Object>();
 	
@@ -113,6 +113,12 @@ public class Project extends BasicCoordinate{
 	
 	public String getProjectSourceFolder(){
 		return this.sourceFolder+"/"+this.getPackagePath();
+	}
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 	
 	

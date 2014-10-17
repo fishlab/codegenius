@@ -33,7 +33,7 @@ public class EncodingDetector {
 		return result;
 	}
 	
-	public static String getCharset(InputStream in,int len) throws IllegalArgumentException, IOException{
+	public static String getCharset(InputStream in,int len) throws IOException{
 		Charset cset = null;
 		cset = proxy.detectCodepage(in,len);
 		return cset.toString();

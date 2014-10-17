@@ -12,6 +12,7 @@ import org.fishlab.codegenius.base.BatchTemplateBasedGenerator;
  * */
 public class ProjectBreviaryGenerator extends BatchTemplateBasedGenerator{
 	private String controllerName="ProjectBreviaryController"; 
+	
 	@Override
 	protected List<GenerationTask> getGenerationTasks(GenerationContext context) {
 		Project project = context.getProject();

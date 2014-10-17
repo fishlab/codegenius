@@ -28,10 +28,10 @@
 				</div>
 			</div>
 				
-			<div class="alert alert-success alert-dismissible hidden1" role="alert">
-				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<strong><span class="glyphicon glyphicon-ok"></span> 操作成功!</strong> 你已经成功更新该数据
-			</div>
+##			<div class="alert alert-success alert-dismissible hidden" role="alert">
+##				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+##				<strong><span class="glyphicon glyphicon-ok"></span> 操作成功!</strong> 你已经成功更新该数据
+##			</div>
 				
 			<table class="table table-bordered table-striped">
 					<colgroup>

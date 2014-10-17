@@ -41,7 +41,7 @@ public abstract class ZipArchiveExtractor extends AbstractGenerator {
 			if (!archiveEntry.isDirectory()&&entryFileName.matches(matcherRegex)){
 				String outputFilePath = baseFolder+extraFolder+entryFileName;
 				File outputFile =new File (outputFilePath);
-				System.out.println("extracting "+outputFilePath);
+//				System.out.println("extracting "+outputFilePath);
 				this.prepareForOutput(outputFile);
 				BufferedOutputStream bos= new BufferedOutputStream(new FileOutputStream(outputFile));
 				long fsize=archiveEntry.getSize();
