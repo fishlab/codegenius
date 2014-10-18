@@ -9,7 +9,7 @@ code genius是一个代码生成器，用来生成各种程序代码。目前只
 需求:编写一个简单的图书信息管理程序
 >1. 打开MySQL命令行，新建一个数据库，例如 book_db
 >2. 打开eclipse新建一个web项目 book_demo，*Dynamic web module version选择2.5*（重要），设置资源编码为UTF-8（否则会有乱码）
->>![s_1.PNG](./genius/screenshot/s_1.PNG)
+>![s_1.PNG](./genius/screenshot/s_1.PNG)
 >3. 由于暂时还没上传到maven中央库,手动将[codegenius-1.0.0.nodep.jar](https://github.com/fishlab/codegenius/blob/master/genius/prebuild/codegenius-1.0.0.nodep.jar?raw=true) 添加至项目构件路径，给项目添加maven支持(解决其他依赖)
 >4. 新建两个源文件夹config和test分别用来放配置文件和测试用例，code genius默认是这两个文件夹，可以修改
 >5. 编写代码
@@ -89,31 +89,31 @@ all generation done,have fun.
 ```
 
 >* 最后生成的的代码如下
->>![s_2.PNG](./genius/screenshot/s_2.PNG)
+>![s_2.PNG](./genius/screenshot/s_2.PNG)
 
 >* 生成的资源文件以及视图
->>![s_3.PNG](./genius/screenshot/s_3.PNG)
+>![s_3.PNG](./genius/screenshot/s_3.PNG)
 
 >6. 运行测试
 >* 部署至Web服务器并启动
 >* 打开浏览器，输入 http://localhost:8080/book_demo/index.html
->>![s_4.PNG](./genius/screenshot/s_4.PNG)
+>![s_4.PNG](./genius/screenshot/s_4.PNG)
 >* 由于我们只写了一个实体类，生成的数据类型只有一个
->>![s_5.PNG](./genius/screenshot/s_5.PNG)
+>![s_5.PNG](./genius/screenshot/s_5.PNG)
 >* 点击 Book,现在没有任何记录
->>![s_6.PNG](./genius/screenshot/s_6.PNG)
+>![s_6.PNG](./genius/screenshot/s_6.PNG)
 >* 点击新增数据，会出现一个表单，直接点提交，通不过前台校验
->>![s_7.PNG](./genius/screenshot/s_7.PNG)
+>![s_7.PNG](./genius/screenshot/s_7.PNG)
 >* 按要求将数据填入表单
->>![s_8.PNG](./genius/screenshot/s_8.PNG)
+>![s_8.PNG](./genius/screenshot/s_8.PNG)
 >* 提交，成功了会显示Book列表
->>![s_9.PNG](./genius/screenshot/s_9.PNG)
+>![s_9.PNG](./genius/screenshot/s_9.PNG)
 >* 可以进行查看，编辑，删除操作
 >* 查看
->>![s_11.PNG](./genius/screenshot/s_10.PNG)
+>![s_11.PNG](./genius/screenshot/s_10.PNG)
 >* 编辑（图略，和添加差不多）
 >* 删除
->>![s_1.PNG](./genius/screenshot/s_11.PNG)
+>![s_1.PNG](./genius/screenshot/s_11.PNG)
 
 ##起源
 因为写java代码都写烦了，大部分都是重复的工作，写这样的程序既浪费了大量时间还不增加经验，这样下去生没时候才能升级啊...
