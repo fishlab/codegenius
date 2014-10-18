@@ -10,7 +10,7 @@ code genius是一个代码生成器，用来生成各种程序代码。目前只
 >1. 打开MySQL命令行，新建一个数据库，例如 book_db
 >2. 打开eclipse新建一个web项目 book_demo，*Dynamic web module version选择2.5*（重要），设置资源编码为UTF-8（否则会有乱码）
 >>![s_1.PNG](./genius/screenshot/s_1.PNG)
->3. 由于暂时还没上传到maven中央库,手动将[codegenius-1.0.0.nodep.jar](./genius/prebuid/codegenius-1.0.0.nodep.jar) 添加至项目构件路径，给项目添加maven支持(解决其他依赖)
+>3. 由于暂时还没上传到maven中央库,手动将[codegenius-1.0.0.nodep.jar](https://github.com/fishlab/codegenius/blob/master/genius/prebuild/codegenius-1.0.0.nodep.jar?raw=true) 添加至项目构件路径，给项目添加maven支持(解决其他依赖)
 >4. 新建两个源文件夹config和test分别用来放配置文件和测试用例，code genius默认是这两个文件夹，可以修改
 >5. 编写代码
 
