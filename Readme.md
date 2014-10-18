@@ -94,6 +94,7 @@ all generation done,have fun.
 
 >* 生成的资源文件以及视图
 >>![s_3.PNG](./genius/screenshot/s_3.PNG)
+
 ###运行测试
 >* 部署至Web服务器并启动
 >* 打开浏览器，输入 http://localhost:8080/book_demo/index.html
