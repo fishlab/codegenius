@@ -62,6 +62,8 @@ public abstract class PreferenceManager {
 			enc = EncodingDetector.getCharset(input,input.available());
 		}else{
 			InputStream markable= InputStreamUtil.toMarkable(input);
+			input.close();
+			input=markable;
 			enc = EncodingDetector.getCharset(markable,markable.available());
 		}
 		BufferedReader bfr =new BufferedReader(new InputStreamReader(input,enc));

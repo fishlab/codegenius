@@ -12,6 +12,7 @@ public class MySQL5DataSource extends DataSource{
 		try {
 			Preference prefs=this.loadDatasourcePrefs("MySQL");
 			this.driver=prefs.getString("driver");
+			System.out.println("driver:"+driver);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
