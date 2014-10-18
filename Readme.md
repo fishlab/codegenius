@@ -7,6 +7,7 @@ code genius是一个代码生成器，用来生成各种程序代码。目前只
 先看看效果，其他的后面说
 
 需求:编写一个简单的图书信息管理程序
+###生成代码
 >1. 打开MySQL命令行，新建一个数据库，例如 book_db
 >2. 打开eclipse新建一个web项目 book_demo，*Dynamic web module version选择2.5*（重要），设置资源编码为UTF-8（否则会有乱码）
 >![s_1.PNG](./genius/screenshot/s_1.PNG)
@@ -93,8 +94,7 @@ all generation done,have fun.
 
 >* 生成的资源文件以及视图
 >>![s_3.PNG](./genius/screenshot/s_3.PNG)
-
->* 运行测试
+###运行测试
 >* 部署至Web服务器并启动
 >* 打开浏览器，输入 http://localhost:8080/book_demo/index.html
 >![s_4.PNG](./genius/screenshot/s_4.PNG)
