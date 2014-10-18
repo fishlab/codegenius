@@ -89,10 +89,10 @@ all generation done,have fun.
 ```
 
 >* 最后生成的的代码如下
->![s_2.PNG](./genius/screenshot/s_2.PNG)
+>>![s_2.PNG](./genius/screenshot/s_2.PNG)
 
 >* 生成的资源文件以及视图
->![s_3.PNG](./genius/screenshot/s_3.PNG)
+>>![s_3.PNG](./genius/screenshot/s_3.PNG)
 
 >6. 运行测试
 >* 部署至Web服务器并启动
