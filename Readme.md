@@ -67,20 +67,20 @@ import org.fishlab.codegenius.Project;
 import org.fishlab.codegenius.datasource.MySQL5DataSource;
 import org.junit.Test;
 public class Luncher {
-	@Test
-	public void test() throws CodeGeniusException{
-		Project project=new Project("org.fishlab.book_demo");
-		project.setDataSource(new MySQL5DataSource("jdbc:mysql://localhost:3306/book_db","root","123456"));
-		project.setVersion("1.0.0-demo");
-		project.setProperty("hibernate.version", "4.1.7.Final");
-		project.setProperty("spring.version","3.2.5.RELEASE");
-		CodeGenius genius =CodeGeniusConfiguration.defaultGenius();//默认的配置实例
-		GenerationContext context= genius.createContext();
-		context.scanPackage("org.fishlab.book_demo.data");
-		context.setOutputDistination(".");//输出目录为当前目录
-		context.setProject(project);
-		genius.process(context);
-	}
+    @Test
+    public void test() throws CodeGeniusException{
+        Project project=new Project("org.fishlab.book_demo");
+        project.setDataSource(new MySQL5DataSource("jdbc:mysql://localhost:3306/book_db","root","123456"));
+        project.setVersion("1.0.0-demo");
+        project.setProperty("hibernate.version", "4.1.7.Final");
+        project.setProperty("spring.version","3.2.5.RELEASE");
+        CodeGenius genius =CodeGeniusConfiguration.defaultGenius();//默认的配置实例
+        GenerationContext context= genius.createContext();
+        context.scanPackage("org.fishlab.book_demo.data");//扫描这个包下面的所有类
+        context.setOutputDistination(".");//输出目录为当前目录
+        context.setProject(project);
+        genius.process(context);
+    }
 }
 ```
 >* 执行它,如果最后看到如下字样则成功了
