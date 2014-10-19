@@ -137,7 +137,7 @@ all generation done,have fun.
 * Bootstrap3 前台页面
 
 ##功能
-目前内置的生成器可以生成的代码如下：
+**目前内置的生成器可以生成的代码如下：**
 
 * web配置文件(web.xml)
 * 项目总体框架
@@ -152,7 +152,15 @@ all generation done,have fun.
 * 测试用例（TestCase）
 
 ##下一步工作
-* 稍微调程序结构
+**主要**
+
+* 调程序架构,使之更清晰
+* 分离项目，将基本的类抽取出来成为codegenius,此项目不包含任何代码生成器实现；对于java web代码生成器的实现抽取为codegenius-java-web
+* 嵌入脚本语言（BeanShell，lua或其它）
+* 增加xml配置文件支持
+
+**java web：**
+
 * 增加jsr303，后台注解校验
-* 增加shiro，通用权限验证框架
+* 增加shiro，通用权限验证
 
